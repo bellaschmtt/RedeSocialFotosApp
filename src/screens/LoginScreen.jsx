@@ -1,79 +1,65 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { Image, View } from "react-native";
-import { Button, TextInput } from "react-native-paper";
-import { auth } from "../config/firebase";
-import { styles } from "../utils/styles";
+import { View, TextInput } from "react-native";
+import { Button, Text } from "react-native-paper";
+import Post from "../components/Post";
+// import { auth } from "../config/Firebase";
 
-export default function LoginScreen() {
+import styles from "../utils/styles";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
+import SocialScreen from "./SocialScreen";
+
+export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [error, setError] = useState("");
 
-  // função para lidar com o login do Usuário
   function handleLogin() {
+    console.log(email);
+    console.log(senha);
     signInWithEmailAndPassword(auth, email, senha)
-      .then((userCredencial) => {
-        console.log("Usuário logado com sucesso!");
-        navigation.navigate("HomeScreen");
+      .then((userCredential) => {
+        navigation.navigate('TabsNavigation');
       })
       .catch((error) => {
-        console.log("Erro ao criar usuário", error);
-        //código de erro
-        const errorCode = error.code;
-        if (email === "" || senha === "") {
-          console.log("Preencha todos os campos");
-          return;
-        }
-        if (senha.length < 6) {
-          console.log("A senha deve ter no mínimo 6 caracteres");
-          return;
-        }
-        if (!email.includes("@")) {
-          console.log("E-mail inválido");
-          return;
-        }
-        if (!email.includes(".")) {
-          console.log("E-mail inválido");
-          return;
-        }
-        if (email.includes(" ")) {
-          console.log("E-mail inválido");
-          return;
-        }
-        if (errorCode === "auth/invalid-email") {
-          console.log("E-mail inválido");
-        }
-        if (errorCode === "auth/user-not-found") {
+        if (error.code === "auth/user-not-found") {
           console.log("Usuário não encontrado");
+          setError("Usuário não encontrado");
         }
-        if (errorCode === "auth/wrong-password") {
+        if (error.code === "auth/wrong-password") {
           console.log("Senha incorreta");
+          setError("Senha incorreta");
+        }
+        if (error.code === "auth/invalid-email") {
+          console.log("Email inválido");
+          setError("Email inválido");
         }
       });
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.box}>
-        <Image
-          source={{ uri: "https://picsum.photos/200" }}
-          style={styles.imgRedonda}
-        />
-        <TextInput
-          label="Email"
-          placeholder="Digite seu email"
-          onChangeText={setEmail}
-          value={email}
-        />
-        <TextInput
-          label={"Senha"}
-          placeholder={"Digite sua senha"}
-          onChangeText={setSenha}
-          value={senha}
-          secureTextEntry={true} // faz com que o texto pareça ser uma senha
-        />
-        <Button onPress={handleLogin}>Logar</Button>
-      </View>
+    <View>
+      <Text>Login</Text>
+      {error && <Text>{error}</Text>}
+      <TextInput
+        label="E-mail"
+        placeholder="Digite seu e-mail..."
+        multiline={false}
+        value={email}
+        onChangeText={setEmail}
+      />
+      <TextInput
+        label="Senha"
+        secureTextEntry={true}
+        placeholder="Digite sua Senha..."
+        multiline={false}
+        value={senha}
+        onChangeText={setSenha}
+      />
+      <Button mode="contained" onPress={handleLogin}>
+        Login
+      </Button>
     </View>
   );
 }

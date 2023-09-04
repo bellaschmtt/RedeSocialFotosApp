@@ -1,104 +1,87 @@
-import { NavigationContainer, useTheme } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
+import LoginScreen from "./screens/LoginScreen";
+import HomeScreen from "./screens/HomeScreen";
+import CadastrarScreen from "./screens/CadastrarScreen";
+import SocialScreen from "./screens/SocialScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {AddPostScreen} from "./screens/AddPostScreen";
-import {HomeScreen} from "./screens/HomeScreen";
-import {LoginScreen} from "./screens/LoginScreen";
-import {CadastroScreen} from "./screens/CadastroScreen";
-
-// import { styles } from "./utils/style";
-const Stack = createNativeStackNavigator();
+import AddPostScreen from "./screens/AdicionarPost";
+import Post from "./components/Post";
 
 export default function RootNavigation() {
+  const Tab = createNativeStackNavigator();
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="MainTabNavigator"
-          component={MainTabNavigator}
-          options={{
-            title: "Lista de Tarefas",
-            headerShown: false,
-          }}
+        <Tab.Navigator>
+          <Tab.Screen
+          name="Cadastro"
+          component={CadastrarScreen}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="CadastroScreen"
-          component={CadastroScreen}
-          options={{
-            title: "Editar Tarefa",
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="LoginScreen"
+        <Tab.Screen
+          name="Login"
           component={LoginScreen}
-          options={{
-            title: "Editar Tarefa",
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="HomeScreen"
+        <Tab.Screen
+          name="TabsNavigation"
+          component={TabsNavigation}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="Home"
           component={HomeScreen}
-          options={{
-            title: "Editar Tarefa",
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="AddPostScreen"
-          component={AddPostScreen}
-          options={{
-            title: "Editar Tarefa",
-            headerShown: false,
-          }}
-        />
-      </Stack.Navigator>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
 
-const MTBNavigator = createMaterialBottomTabNavigator();
+const Tabs = createMaterialBottomTabNavigator();
 
-export function MainTabNavigator() {
-  const theme = useTheme();
-
-  theme.colors.secondaryContainer = "#6C757D";
-
+function TabsNavigation() {
   return (
-    <MTBNavigator.Navigator
-      barStyle={{ backgroundColor: "#495057" }}
-      activeColor="#212529"
-      inactiveColor="#FFFFFF"
-      theme={theme}
+    <Tabs.Navigator
+      // cardStyle={{backgroundColor:'transparent'}}
+      screenOptions={{
+        headerStyle: {
+          // backgroundColor: '#00305A',
+        },
+
+        headerTitleStyle: {
+          color: '#00305A'
+        },
+
+        headerTintColor: '#fff',
+
+      }}
     >
-      {/* <MTBNavigator.Screen
-        name="ListScreen"
-        component={ListAllTasks}
+      <Tabs.Screen
+        name="Social"
+        component={SocialScreen}
         options={{
-          title: "Lista de Tarefas",
-          headerShown: false,
-          tabBarIcon: () => (
-            <MaterialCommunityIcons
-              name="list-status"
-              size={24}
-              color={"#212529"}
-            />
-          ),
+          tabBarLabel: "Home",
+          headerShown: false
         }}
       />
-      <MTBNavigator.Screen
-        name="AddTaskScreen"
-        component={AddTaskScreen}
+      <Tabs.Screen
+        name="Add Post"
+        component={AddPostScreen}
         options={{
-          title: "Adicionar Tarefa",
-          headerShown: false,
-          tabBarIcon: () => (
-            <MaterialCommunityIcons name="plus-circle" size={24} />
-          ),
+          tabBarLabel: "Add Post",
+          headerShown: false
         }}
-      /> */}
-    </MTBNavigator.Navigator>
+      />
+      <Tabs.Screen
+        name="Post"
+        component={Post}
+        options={{
+          tabBarLabel: "Post",
+          headerShown: false
+        }}
+      />
+    </Tabs.Navigator>
   );
 }

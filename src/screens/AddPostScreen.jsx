@@ -1,60 +1,98 @@
-import { useState } from "react";
-import { View } from "react-native";
-import { Button, Divider, Text, TextInput } from "react-native-paper";
-import { styles } from "../utils/style";
+import { Platform, View, Image, Button } from "react-native";
+import { TextInput } from "react-native-paper";
 import { addDoc, collection } from "firebase/firestore";
+import { useState } from "react";
 import { db } from "../config/firebase";
+import * as ImagePicker from "expo-image-picker";
 
-export default function AddTaskScreen() {
-  const [titulo, setTitulo] = useState("");
-  const [descricao, setDescricao] = useState("");
+export default function AddPostScreen() {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [image, setImage] = useState(null); // Moved outside of inserirPost
 
-  async function addTaskToFirestore() {
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  async function inserirPost() {
     try {
-      const taskRef = collection(db, "tarefas");
-      const payload = await addDoc(taskRef, {
-        titulo: titulo,
-        descricao: descricao,
-      });
-      console.log(payload);
+      if (image) {
+        const response = await fetch(image);
+        const blob = await response.blob();
+        const base64Image = await convertBlobToBase64(blob);
+
+        const payload = {
+          Title: title,
+          Content: content,
+          Image: base64Image,
+        };
+        const post = await addDoc(postRef, payload);
+        console.log(post);
+      } else {
+        const payload = {
+          Title: title,
+          Content: content,
+        };
+        const post = await addDoc(postRef, payload);
+        console.log(post);
+      }
     } catch (error) {
       console.log(error);
+      console.error("Error uploading image: ", error);
     }
   }
 
+  const convertBlobToBase64 = (blob) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+
+  const postRef = collection(db, "Post");
+
+  const ImageComponent = () => {
+    if (Platform.OS === "web") {
+      return <img src={image} style={{ width: 200, height: 200 }} />;
+    } else {
+      return (
+        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+      );
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <Text variant="headlineLarge" style={styles.title}>
-        Adicionar Tarefa
-      </Text>
-      <Divider />
-      <TextInput
-        label="Título"
-        value={titulo}
-        onChangeText={setTitulo}
-        style={styles.selfFullWidth}
-        underlineColor="#F8F9FA"
-        activeUnderlineColor="#F8F9FA"
-      />
-      <Divider style={styles.divider} />
-      <TextInput
-        label="Descrição"
-        value={descricao}
-        onChangeText={setDescricao}
-        style={styles.selfFullWidth}
-        underlineColor="#F8F9FA"
-        activeUnderlineColor="#F8F9FA"
-      />
-      <Divider style={styles.divider} />
-      <Button
-        textColor="#fff"
-        buttonColor="#6C757D"
-        mode="contained"
-        onPress={addTaskToFirestore}
-        icon={"plus"}
-      >
-        Adicionar Tarefa
-      </Button>
+    <View>
+      <View>
+        <View>
+          <TextInput label="Titulo" value={title} onChangeText={setTitle} />
+          <TextInput
+            label="Descrição"
+            value={content}
+            onChangeText={setContent}
+          />
+          {image && <ImageComponent />}
+          <Button title="Pick an image" onPress={pickImage} />
+          <Button
+            title="Criar um Post"
+            onPress={inserirPost}
+            disabled={!title || !content}
+          />
+        </View>
+      </View>
     </View>
   );
 }
