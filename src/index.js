@@ -2,11 +2,10 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
-import CadastrarScreen from "./screens/CadastrarScreen";
+import CadastroScreen from "./screens/CadastroScreen";
 import SocialScreen from "./screens/SocialScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AddPostScreen from "./screens/AdicionarPost";
-import Post from "./components/Post";
+import AddPostScreen from "./screens/AddPostScreen";
 
 export default function RootNavigation() {
   const Tab = createNativeStackNavigator();
@@ -16,7 +15,7 @@ export default function RootNavigation() {
         <Tab.Navigator>
           <Tab.Screen
           name="Cadastro"
-          component={CadastrarScreen}
+          component={CadastroScreen}
           options={{ headerShown: false }}
         />
         <Tab.Screen
@@ -74,14 +73,14 @@ function TabsNavigation() {
           headerShown: false
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="Post"
         component={Post}
         options={{
           tabBarLabel: "Post",
           headerShown: false
         }}
-      />
+      /> */}
     </Tabs.Navigator>
   );
 }

@@ -1,5 +1,5 @@
 import { ScrollView, View } from "react-native";
-import Post from "../components/Post";
+// import Post from "../components/Post";
 import { Button } from "react-native-paper";
 
 export default function Social({ navigation }) {
@@ -14,7 +14,7 @@ export default function Social({ navigation }) {
           onPress={() => {
             navigation.navigate("Post");
           }}
-        >Clique aqui para ver seus Posts</Button>
+        >Ver seus Posts</Button>
       </View>
     </ScrollView>
   );

@@ -2,13 +2,13 @@
 import { useState } from "react";
 import { View, TextInput } from "react-native";
 import { Button, Text } from "react-native-paper";
-import Post from "../components/Post";
+// import Post from "../components/Post";
 // import { auth } from "../config/Firebase";
 
-import styles from "../utils/styles";
+// import styles from "../utils/styles";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
-import SocialScreen from "./SocialScreen";
+// import SocialScreen from "./SocialScreen";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
