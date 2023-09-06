@@ -1,11 +1,7 @@
-// import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { View, TextInput } from "react-native";
 import { Button, Text } from "react-native-paper";
 // import Post from "../components/Post";
-// import { auth } from "../config/Firebase";
-
-// import styles from "../utils/styles";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 // import SocialScreen from "./SocialScreen";
@@ -20,7 +16,7 @@ export default function LoginScreen({ navigation }) {
     console.log(senha);
     signInWithEmailAndPassword(auth, email, senha)
       .then((userCredential) => {
-        navigation.navigate('TabsNavigation');
+        navigation.navigate("TabsNavigation");
       })
       .catch((error) => {
         if (error.code === "auth/user-not-found") {
@@ -41,7 +37,7 @@ export default function LoginScreen({ navigation }) {
   return (
     <View>
       <Text>Login</Text>
-      {error && <Text>{error}</Text>}
+      <View>{error && <Text>{error}</Text>}</View>
       <TextInput
         label="E-mail"
         placeholder="Digite seu e-mail..."

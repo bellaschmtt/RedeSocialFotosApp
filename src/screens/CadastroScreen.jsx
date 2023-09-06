@@ -1,7 +1,5 @@
-// import { createUserWithEmailAndPassword } from "firebase/auth";
 import { View, TextInput } from "react-native";
 import { Button, Text } from "react-native-paper";
-// import styles from "../utils/styles";
 import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../config/firebase";

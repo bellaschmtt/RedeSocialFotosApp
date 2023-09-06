@@ -1,19 +1,21 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCiXAd8tN1U2bFSeZI8LUiERRuj7hmDK90",
-  authDomain: "peraapp-d625c.firebaseapp.com",
-  projectId: "peraapp-d625c",
-  storageBucket: "peraapp-d625c.appspot.com",
-  messagingSenderId: "574399247841",
-  appId: "1:574399247841:web:5be70c35b4c4a7cfb30ea0",
+  apiKey: "AIzaSyDCqTt6mZtO9z1txrwWGbf0vcguCAD2a44",
+  authDomain: "redesocialfotosapp-682e1.firebaseapp.com",
+  projectId: "redesocialfotosapp-682e1",
+  storageBucket: "redesocialfotosapp-682e1.appspot.com",
+  messagingSenderId: "359242511679",
+  appId: "1:359242511679:web:a0344a42ceea873a1d8f8a",
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);   
+const app = initializeApp(firebaseConfig); 
+export const db = getFirestore(app);
+export const auth = getAuth(app);

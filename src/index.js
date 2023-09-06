@@ -2,20 +2,21 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
-import CadastroScreen from "./screens/CadastroScreen";
 import SocialScreen from "./screens/SocialScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AddPostScreen from "./screens/AddPostScreen";
+import Post from "./components/Post";
 
 export default function RootNavigation() {
   const Tab = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen
+      <Tab.Navigator>
+        <Tab.Screen
           name="Cadastro"
-          component={CadastroScreen}
+          // component={CadastroScreen}
+          component={TabsNavigation}
           options={{ headerShown: false }}
         />
         <Tab.Screen
@@ -50,11 +51,10 @@ function TabsNavigation() {
         },
 
         headerTitleStyle: {
-          color: '#00305A'
+          color: "#00305A",
         },
 
-        headerTintColor: '#fff',
-
+        headerTintColor: "#fff",
       }}
     >
       <Tabs.Screen
@@ -62,7 +62,7 @@ function TabsNavigation() {
         component={SocialScreen}
         options={{
           tabBarLabel: "Home",
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -70,17 +70,17 @@ function TabsNavigation() {
         component={AddPostScreen}
         options={{
           tabBarLabel: "Add Post",
-          headerShown: false
+          headerShown: false,
         }}
       />
-      {/* <Tabs.Screen
+      <Tabs.Screen
         name="Post"
         component={Post}
         options={{
           tabBarLabel: "Post",
           headerShown: false
         }}
-      /> */}
+      />
     </Tabs.Navigator>
   );
 }
