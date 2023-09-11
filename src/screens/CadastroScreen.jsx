@@ -38,11 +38,25 @@ export default function CadastrarScreen({ navigation }) {
 
   return (
     <View>
-      <Text>
+      <Text style={{
+        fontSize: 20,
+        // fontWeight: "bold",
+        textAlign: "center",
+        marginBottom: 20,
+        // marginTop: 20,
+      
+      }}>
         <h1>Cadastrar </h1>
       </Text>
 
       <TextInput
+        style={{ marginBottom: 10, 
+          fontWeight: "bold",
+          textAlign: "center",
+          // marginTop: 20,
+          fontSize: 20,
+        
+        }}
         label="Nome"
         placeholder="Digite seu nome..."
         multiline={false}
@@ -51,6 +65,13 @@ export default function CadastrarScreen({ navigation }) {
       />
 
       <TextInput
+        style={{ marginBottom: 10, 
+          fontWeight: "bold",
+          textAlign: "center",
+          // marginTop: 20,
+          fontSize: 20,
+        
+        }}
         label="E-mail"
         placeholder="Digite seu e-mail..."
         multiline={false}
@@ -59,6 +80,14 @@ export default function CadastrarScreen({ navigation }) {
       />
 
       <TextInput
+
+        style={{ marginBottom: 10, 
+          fontWeight: "bold",
+         textAlign: "center",
+        //  marginTop: 20,
+         fontSize: 20,
+
+        }}
         label="Senha"
         secureTextEntry={true}
         placeholder="Digite sua Senha..."
@@ -67,7 +96,15 @@ export default function CadastrarScreen({ navigation }) {
         onChangeText={setSenha}
       />
 
-      <Button mode="contained" onPress={cadastrarPessoa}>
+      <Button
+       style={{
+        marginBottom: 10, 
+        // fontWeight: "bold",
+        textAlign: "center",
+        marginTop: 20,
+        backgroundColor: "#66b6ab",
+      }}
+      mode="contained" onPress={cadastrarPessoa}>
         Cadastrar-se
       </Button>
     </View>

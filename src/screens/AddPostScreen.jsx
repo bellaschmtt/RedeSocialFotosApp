@@ -1,5 +1,5 @@
-import { Platform, View, Image, Button } from "react-native";
-import { TextInput } from "react-native-paper";
+import { Platform, View, Image, Button, TextInput } from "react-native";
+// import { TextInput } from "react-native-paper";
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 import { db } from "../config/firebase";
@@ -77,9 +77,31 @@ export default function AddPostScreen() {
   return (
     <View>
       <View>
-        <View>
-          <TextInput label="Titulo" value={title} onChangeText={setTitle} />
+        <View >
           <TextInput
+           label="Titulo"
+            value={title} onChangeText={setTitle}
+            style={{ marginBottom: 10, 
+              textAlign: "center",
+              fontSize: 20,
+              backgroundColor: "#fff",
+              marginTop: 70,
+              fontWeight: "bold",
+            
+            }}
+            placeholder="Titulo da publicação..."
+          />
+          <TextInput
+
+            style={{ marginBottom: 10, 
+              textAlign: "center",
+              //  marginTop: 20,
+              fontSize: 20,
+              backgroundColor: "#fff",
+              // width: 300,
+
+            }}
+            placeholder="Comente algo :)"
             label="Descrição"
             value={content}
             onChangeText={setContent}
@@ -87,6 +109,13 @@ export default function AddPostScreen() {
           {image && <ImageComponent />}
           <Button title="Pick an image" onPress={pickImage} />
           <Button
+          style={{ marginBottom: 10,
+            backgroundColor: "##66b6ab",
+            textAlign: "center",
+            marginTop: 20,
+            fontSize: 20,
+            radius: 200,
+          }}
             title="Criar um Post"
             onPress={inserirPost}
             disabled={!title || !content}

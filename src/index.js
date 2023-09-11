@@ -6,6 +6,7 @@ import SocialScreen from "./screens/SocialScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AddPostScreen from "./screens/AddPostScreen";
 import Post from "./components/Post";
+import CadastroScreen from "./screens/CadastroScreen";
 
 export default function RootNavigation() {
   const Tab = createNativeStackNavigator();

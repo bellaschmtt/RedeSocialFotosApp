@@ -36,16 +36,39 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View>
-      <Text>Login</Text>
+      <Text style={{
+        fontSize: 30,
+        fontWeight: "bold",
+        textAlign: "center",
+        marginBottom: 20,
+        marginTop: 20,
+      }}>Login</Text>
+      
       <View>{error && <Text>{error}</Text>}</View>
       <TextInput
+        style={{ marginBottom: 10, 
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: 20,
+          fontSize: 20,
+        
+        }}
         label="E-mail"
         placeholder="Digite seu e-mail..."
         multiline={false}
         value={email}
         onChangeText={setEmail}
+      
+
       />
       <TextInput
+      style={{ marginBottom: 10, 
+        fontWeight: "bold",
+        textAlign: "center",
+        marginTop: 20,
+        fontSize: 20,
+      
+      }}
         label="Senha"
         secureTextEntry={true}
         placeholder="Digite sua Senha..."
@@ -53,7 +76,18 @@ export default function LoginScreen({ navigation }) {
         value={senha}
         onChangeText={setSenha}
       />
-      <Button mode="contained" onPress={handleLogin}>
+      <Button 
+      style={{
+        // width:300,
+        marginBottom: 10, 
+        fontWeight: "bold",
+        textAlign: "center",
+        marginTop: 20,
+      }}
+      // mode="contained"
+      buttonColor="#66b6ab"
+      textColor="#fff"
+      mode="contained" onPress={handleLogin}>
         Login
       </Button>
     </View>
